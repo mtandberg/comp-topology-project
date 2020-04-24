@@ -233,12 +233,25 @@ int main(void) {
 
 //Multiple Textures
 	glActiveTexture(GL_TEXTURE0);
-	GLuint jeans = loadTexture("../world.jpg");
+	GLuint jeans = loadTexture("../world2.jpg");
 	glBindTexture(GL_TEXTURE_2D, jeans);
-
 	glActiveTexture(GL_TEXTURE1);
+
+	/*
 	GLuint checker = createTexture();
 	glBindTexture(GL_TEXTURE_2D, checker);
+	*/
+
+	GLuint intensity = loadTexture("../heat1.jpg");
+	glBindTexture(GL_TEXTURE_2D, intensity);
+	glActiveTexture(GL_TEXTURE2);
+
+
+	GLuint intensity2 = loadTexture("../face.jpg");
+	glBindTexture(GL_TEXTURE_2D, intensity2);
+	glActiveTexture(GL_TEXTURE3);
+
+	
 
     // copy vertex data
     GLuint vbo;
@@ -289,7 +302,7 @@ int main(void) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	
-	int n = count%2;
+	int n = (count%2) + 1;
 
         // render the object
         shader.use();
@@ -297,7 +310,8 @@ int main(void) {
         Uniform::set(shader.id(), "projection", camera.projection);
         Uniform::set(shader.id(), "camera", camera.look_at());
         Uniform::set(shader.id(), "eye", camera.eye);
-	Uniform::set(shader.id(), "map", n);
+	Uniform::set(shader.id(), "map", 0);
+	Uniform::set(shader.id(), "intensity", n);
 
 	
 

@@ -3,6 +3,7 @@ in vec2 ourTexCoord;
 out vec4 fragColor;
 
 uniform sampler2D map;
+uniform sampler2D intensity;
 
 /**
  * TODO: PART-1 update the fragment shader to get the texture coordinates from
@@ -16,5 +17,6 @@ uniform sampler2D map;
 
 void main() {
 vec4 color = texture(map, ourTexCoord);
-    fragColor = color;
+vec4 strength = texture(intensity, ourTexCoord);
+    fragColor = vec4(clamp(color.x+strength.x, 0.0, 1.0), color.y, color.z, color.w);
 }

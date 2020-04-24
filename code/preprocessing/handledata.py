@@ -5,6 +5,7 @@ import math
 import random
 import pandas as pd
 import csv
+import numpy as np
 
 
 '''
@@ -29,7 +30,25 @@ class Handledata:
                     
             return data_frame.drop(0)
 
-        
+#this function for converting Latitude and Longitude data into a 3-dimensional
+#representation of data was taken from StackOverflow at this link
+#https://stackoverflow.com/questions/10473852/convert-latitude-and-longitude-to-point-in-3d-space
+def convert(lat, lon):
+    # see http://www.mathworks.de/help/toolbox/aeroblks/llatoecefposition.html
+
+    rad = np.float64(6378137.0)        # Radius of the Earth (in meters)
+    f = np.float64(1.0/298.257223563)  # Flattening factor WGS84 Model
+    cosLat = np.cos(lat)
+    sinLat = np.sin(lat)
+    FF     = (1.0-f)**2
+    C      = 1/np.sqrt(cosLat**2 + FF * sinLat**2)
+    S      = C * FF
+
+    x = (rad * C)*cosLat * np.cos(lon)
+    y = (rad * C)*cosLat * np.sin(lon)
+    z = (rad * S)*sinLat
+
+    return [x, y, z]        
         
 
 
@@ -54,15 +73,37 @@ if __name__ == '__main__':
         row_num = 0
         if (column_labels != 'Province/State') and (column_labels !='Country/Region') and (column_labels !='Lat') and (column_labels !='Long'):
             for col_val in column_values:
-                x = corona_data_frame.loc[row_num+1, column_labels]
+                #x = corona_data_frame.loc[row_num+1, column_labels]
 
                 if int(col_val) <= 50:
                     corona_data_frame.loc[row_num+1, column_labels] = 0
                 else:
                     corona_data_frame.loc[row_num+1, column_labels] = 1
                 row_num = row_num + 1
-    
-    print(corona_data_frame)
+    #if there are more than 50 cases in a country, they will have a 1 for true in that date slot, and 0 otherwise. 
+    #print(corona_data_frame)
+                
+    one_day = []
+    all_days= []
+    for column_labels, column_values in corona_data_frame.items():
+        row_num = 0
+        if (column_labels != 'Province/State') and (column_labels !='Country/Region') and (column_labels !='Lat') and (column_labels !='Long'):
+            for col_val in column_values:
+                if int(col_val) == 1:
+                    lat = float(corona_data_frame.loc[row_num+1, "Lat"])
+                    lon = float(corona_data_frame.loc[row_num+1, "Long"])
+                    #convert Latitude, Longitude data into a 3D representation of that same data
+                    #will let TDA occur correctly at all points on a map
+                    converted_loc = convert(lat, lon)
+                    #send the converted data into a list, having all points for one day in one list together
+                    one_day.append(converted_loc)
+                    #add one_day entry to the entire collection of data in a List data structure
+                    all_days.append(one_day)
+                    row_num = row_num + 1
+    # hold all the data in a numpy array, indexed such that day 1  (January 22, 2020) = 0
+    corona_3D_data = np.array(all_days)
+    print("made it")
+        
 
 #OUTPUT: Pandas dataframe with rows going from 1 to n, each representing a geographic area and its time evolution of coronavirus cases over time. 
 

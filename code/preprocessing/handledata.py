@@ -70,10 +70,14 @@ class Handledata:
           
 
     def tosphere(self, corona_data_frame):
-        one_day = []
         all_days= []
         for column_labels, column_values in corona_data_frame.items():
             row_num = 0
+
+            location_label = []
+            province_label = []
+
+            one_day = []
             if (column_labels != 'Province/State') and (column_labels !='Country/Region') and (column_labels !='Lat') and (column_labels !='Long'):
                 for col_val in column_values:
                     if int(col_val) == 1:
@@ -84,10 +88,26 @@ class Handledata:
                         converted_loc = self.convert(lat, lon)
                         #send the converted data into a list, having all points for one day in one list together
                         one_day.append(converted_loc)
+                        location_label.append(corona_data_frame.loc[row_num+1,'Country/Region'])
+                        province_label.append(corona_data_frame.loc[row_num+1,'Province/State'])
+
+
+
                         #add one_day entry to the entire collection of data in a List data structure
-                        all_days.append(one_day)
-                        row_num = row_num + 1
+                    row_num = row_num + 1
+
+                one_day = np.array(one_day)
+
+                all_days.append(one_day)
+                all_days.append(location_label)
+                all_days.append(province_label)
+                '''
+                for x in range(0,one_day.size/3):
+                    print(one_day[x], location_label[x], province_label[x])
+                '''
         # hold all the data in a numpy array, indexed such that day 1  (January 22, 2020) = 0
+        print(all_days[1])
+
         corona_3D_data = np.array(all_days)
         return corona_3D_data
 

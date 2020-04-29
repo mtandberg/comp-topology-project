@@ -40,22 +40,24 @@ if __name__ == '__main__':
 
             counter = counter +1
             print('Simplices in rips filtration with sensitivity ', rips_stopping_radius)
+            '''
             output.write('Simplices in rips filtration with sensitivity ')
             output.write(str(rips_stopping_radius))
             output.write('m\n')
+            '''
             for simplex in f:
                 
                 for index in simplex:
                     '''
                     print('Simplex: ', simplex, 'Place: ', point_data[infected_idx+1][index],',', point_data[infected_idx+2][index])
                     '''
-                    output.write('Day: ' )
+                    output.write('Day_' )
                     output.write(str(counter))
-                    output.write(' Simplex: ')
+                    output.write('_Simplex_')
                     output.write(str(simplex))
-                    output.write(' Place: ')
+                    output.write('_Place_')
                     output.write(point_data[infected_idx+1][index])
-                    output.write(',')
+                    output.write('_')
                     output.write(str(point_data[infected_idx+2][index]))
                     output.write("\n")
                     

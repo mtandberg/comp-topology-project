@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     print('Rips Filtration')
     n_skeleton = 2
-    rips_stopping_radius = 1500 #Meters
+    rips_stopping_radius = 1000000 #Meters
     filtration_list = []
     counter = 0
 

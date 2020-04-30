@@ -39,7 +39,7 @@ if __name__ == '__main__':
             filtration_list.append(f)
 
             counter = counter +1
-            print('Simplices in rips filtration with sensitivity ', rips_stopping_radius)
+            #print('Simplices in rips filtration with sensitivity ', rips_stopping_radius)
             '''
             output.write('Simplices in rips filtration with sensitivity ')
             output.write(str(rips_stopping_radius))
@@ -65,6 +65,10 @@ if __name__ == '__main__':
                     output.write(str(point_data[infected_idx+3][index][1]))
                     output.write("\n")
                     
+            print('Homology output')
+            m = d.homology_persistence(f)
+            for i,c in enumerate(m):
+                print(i,c)
 
 
             

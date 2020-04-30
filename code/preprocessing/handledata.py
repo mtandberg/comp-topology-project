@@ -36,17 +36,11 @@ class Handledata:
     def convert(self, lat, lon):
         # see http://www.mathworks.de/help/toolbox/aeroblks/llatoecefposition.html
 
+        #print("Lat long:", lat, lon)
         rad = np.float64(6378137.0)        # Radius of the Earth (in meters)
-        f = np.float64(1.0/298.257223563)  # Flattening factor WGS84 Model
-        cosLat = np.cos(lat)
-        sinLat = np.sin(lat)
-        FF     = (1.0-f)**2
-        C      = 1/np.sqrt(cosLat**2 + FF * sinLat**2)
-        S      = C * FF
-
-        x = (rad * C)*cosLat * np.cos(lon)
-        y = (rad * C)*cosLat * np.sin(lon)
-        z = (rad * S)*sinLat
+        x = (rad )*np.sin(-(lat-90)*np.pi/180) * np.cos((lon+180)*np.pi/180)
+        y = (rad )*np.sin(-(lat-90)*np.pi/180)* np.sin((lon+180)*np.pi/180)
+        z = (rad )*np.cos(-(lat-90)*np.pi/180)
 
         return [x, y, z]        
             
@@ -109,7 +103,7 @@ class Handledata:
                     print(one_day[x], location_label[x], province_label[x])
                 '''
         # hold all the data in a numpy array, indexed such that day 1  (January 22, 2020) = 0
-        print(all_days[1])
+        #print(all_days[1])
 
         corona_3D_data = np.array(all_days)
         return corona_3D_data
@@ -132,8 +126,10 @@ if __name__ == '__main__':
 
     point_data = preprocess_impl.tosphere(corona_data_frame)
 
-    print(point_data[0])
-    print(point_data.shape)
+    y = 4*2
+    for x in range(0,len(point_data[y])):
+        print(point_data[y][x], point_data[y+1][x], point_data[y+2][x], point_data[y+3][x])
+    #print(point_data.shape)
 
                
         

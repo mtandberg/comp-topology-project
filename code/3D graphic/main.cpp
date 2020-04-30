@@ -151,7 +151,7 @@ GLuint loadTexture(const std::string& path, bool flip=true) {
          * TODO: Part-3 create a texture map for an image
          */
     glBindTexture(GL_TEXTURE_2D, textureID);
-    std::cout << width << " " << height << " " << data[1] << " " << nrComponents <<std::endl;
+//std::cout << width << " " << height << " " << data[1] << " " << nrComponents <<std::endl;
     glTexImage2D(GL_TEXTURE_2D, 0,format,width,height,0,format,GL_UNSIGNED_BYTE,data);
 
     //mipmap
@@ -310,7 +310,6 @@ int main(void) {
 	
 
 
-	std::cout << filename + std::to_string(n) << std::endl;
 
         // render the object
         shader.use();

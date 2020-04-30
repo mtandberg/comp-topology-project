@@ -21,6 +21,7 @@ if __name__ == '__main__':
 
     print('Writing to output file: output.txt')
     output= open("output.txt","w+")
+    homology = open("homology.txt","w+")
 
 
 
@@ -68,7 +69,11 @@ if __name__ == '__main__':
             print('Homology output')
             m = d.homology_persistence(f)
             for i,c in enumerate(m):
-                print(i,c)
+                if(len(c) != 0):
+                    #print(i,c)
+                    homology.write('HomologyChain_')
+                    homology.write(str(c))
+                    homology.write("\n")
 
 
             

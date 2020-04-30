@@ -76,6 +76,7 @@ class Handledata:
 
             location_label = []
             province_label = []
+            lat_long = []
 
             one_day = []
             if (column_labels != 'Province/State') and (column_labels !='Country/Region') and (column_labels !='Lat') and (column_labels !='Long'):
@@ -90,6 +91,7 @@ class Handledata:
                         one_day.append(converted_loc)
                         location_label.append(corona_data_frame.loc[row_num+1,'Country/Region'])
                         province_label.append(corona_data_frame.loc[row_num+1,'Province/State'])
+                        lat_long.append([lat,lon])
 
 
 
@@ -101,6 +103,7 @@ class Handledata:
                 all_days.append(one_day)
                 all_days.append(location_label)
                 all_days.append(province_label)
+                all_days.append(lat_long)
                 '''
                 for x in range(0,one_day.size/3):
                     print(one_day[x], location_label[x], province_label[x])

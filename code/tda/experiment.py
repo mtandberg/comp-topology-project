@@ -32,7 +32,7 @@ if __name__ == '__main__':
     counter = 0
 
     for infected_idx in range(0,point_data.size):
-        if(infected_idx % 3 == 0):
+        if(infected_idx % 4 == 0):
             print('Day ', counter, '...')
             f = d.fill_rips(point_data[infected_idx], n_skeleton, rips_stopping_radius)
 
@@ -59,6 +59,10 @@ if __name__ == '__main__':
                     output.write(point_data[infected_idx+1][index])
                     output.write('_')
                     output.write(str(point_data[infected_idx+2][index]))
+                    output.write('_')
+                    output.write(str(point_data[infected_idx+3][index][0]))
+                    output.write('_')
+                    output.write(str(point_data[infected_idx+3][index][1]))
                     output.write("\n")
                     
 

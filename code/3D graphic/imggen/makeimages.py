@@ -34,7 +34,11 @@ def readoutput():
             
 
 if __name__ == '__main__':
-    img = Image.new('RGB', (256, 256))
+    #img = Image.open('background.jpg')
+    WIDTH = 620 
+    HEIGHT = 480 
+
+    img = Image.new('RGB', (WIDTH,HEIGHT))
 
     data = readoutput()
     name = '../imgs/virusmap'
@@ -42,24 +46,31 @@ if __name__ == '__main__':
     for count, day in enumerate(data):
         filename = name + str(count)
         print(filename)
-        WIDTH = 256
-        HEIGHT = 256
         new_img = img.resize((WIDTH,HEIGHT))
 
         draw = ImageDraw.Draw(new_img)
         idx = 0
         while idx < len(day):
+
+
+            #Draw 0 simplicies
             if(day[idx][1] == 0):
-                draw.point(((day[idx][2]+180)*WIDTH/360,(day[idx][3]+90)*HEIGHT/180), fill='red')
+                draw.point(((day[idx][3]+180)*WIDTH/360,HEIGHT-(day[idx][2]+90)*HEIGHT/180), fill='red')
+
+            #Remove Comment for addition of 1 simplicies
+            '''
             if(day[idx][1] == 1):
-                print(idx, day[idx])
+                #print(idx, day[idx])
                 draw.line(
                         [
-                            ((day[idx][2]+180)*WIDTH/360,(day[idx][3]+90)*HEIGHT/180),
-                            ((day[idx+1][2]+180)*WIDTH/360,(day[idx+1][3]+90)*HEIGHT/180)
-                            ], fill='red', width = 5)
+                            ((day[idx][3]+180)*WIDTH/360,HEIGHT-(day[idx][2]+90)*HEIGHT/180),
+                            ((day[idx+1][3]+180)*WIDTH/360,HEIGHT-(day[idx+1][2]+90)*HEIGHT/180)
+                            ], fill='red', width = 0)
                 idx=idx+1
-                print(idx)
+            '''
+
+
+            idx = idx+1
         del draw
         #new_img.show()
         new_img.save(filename, 'jpeg')

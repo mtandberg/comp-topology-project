@@ -18,5 +18,6 @@ uniform sampler2D intensity;
 void main() {
 vec4 color = texture(map, ourTexCoord);
 vec4 strength = texture(intensity, ourTexCoord);
-    fragColor = vec4(clamp(color.x+strength.x, 0.0, 1.0), color.y, color.z, color.w);
+    fragColor = vec4(clamp(color.x+500*strength.x, 0.0, 1.0), color.y, color.z, color.w);
+
 }

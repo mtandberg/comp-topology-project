@@ -232,7 +232,7 @@ int main(void) {
     //shape.coords = cube_texture(shape.coords);
 
 //Multiple Textures
-	glActiveTexture(GL_TEXTURE0);
+	//glActiveTexture(GL_TEXTURE0);
 	GLuint jeans = loadTexture("../world2.jpg");
 	glBindTexture(GL_TEXTURE_2D, jeans);
 	glActiveTexture(GL_TEXTURE1);
@@ -241,15 +241,13 @@ int main(void) {
 	GLuint checker = createTexture();
 	glBindTexture(GL_TEXTURE_2D, checker);
 	*/
-
-	GLuint intensity = loadTexture("../heat1.jpg");
+/*
+	GLuint intensity = loadTexture("../imgs/virusmap56");
 	glBindTexture(GL_TEXTURE_2D, intensity);
 	glActiveTexture(GL_TEXTURE2);
+	*/
 
 
-	GLuint intensity2 = loadTexture("../face.jpg");
-	glBindTexture(GL_TEXTURE_2D, intensity2);
-	glActiveTexture(GL_TEXTURE3);
 
 	
 
@@ -292,6 +290,7 @@ int main(void) {
 
     /* Loop until the user closes the window */
     int count = 0;
+    std::string filename = "../imgs/virusmap";
     while (!glfwWindowShouldClose(window)) {
         // process input
         processInput(model, window );
@@ -302,7 +301,16 @@ int main(void) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	
-	int n = (count%2) + 1;
+	int n = (count%82);
+	
+	
+	GLuint intensity = loadTexture(filename + std::to_string(n));
+	glBindTexture(GL_TEXTURE_2D, intensity);
+	glActiveTexture(GL_TEXTURE2);
+	
+
+
+	std::cout << filename + std::to_string(n) << std::endl;
 
         // render the object
         shader.use();
@@ -311,7 +319,7 @@ int main(void) {
         Uniform::set(shader.id(), "camera", camera.look_at());
         Uniform::set(shader.id(), "eye", camera.eye);
 	Uniform::set(shader.id(), "map", 0);
-	Uniform::set(shader.id(), "intensity", n);
+	Uniform::set(shader.id(), "intensity", 2);
 
 	
 

@@ -35,8 +35,8 @@ if __name__ == '__main__':
                 two_simplex_ctr = 0
             #gather data from input file
             simplex_from_data = data[3]
-            end = simplex_from_data.find(">")
-            simplex = simplex_from_data[0: end+1]
+            end = int(simplex_from_data.find(">"))
+            simplex = simplex_from_data[0:end]
             points_in_simplex = simplex.split(",")
 
             #determine if 0-, 1-, or 2-simplex
@@ -45,15 +45,15 @@ if __name__ == '__main__':
             elif len(points_in_simplex) == 2:
                 one_simplex_ctr = 1+ one_simplex_ctr
                 a = 1
-            elif len(points_in_simplex) == 3:
+            else:# len(points_in_simplex) == 3:
+                #never seems to get here. There are 2-simplexes though..
                 two_simplex_ctr == 1 + two_simplex_ctr
                 a=2
-
     #plot data in a bar graph
     plt.bar(day_ctr_arr, zero_simplex, align='center', alpha = 0.5, color = 'b', label = "zero-simplices")
     plt.bar(day_ctr_arr, one_simplex, align='center', alpha = 0.5, color = 'g', label = "one-simplicies")
     plt.xlabel("Day")
     plt.ylabel("Number of Simplicies")
     plt.legend()
-    plt.title('Number of 0- and 1- Simplicies per Day at 1,000km Sensitivity')
+    plt.title('Number of 0-, 1-, 2- and  Simplicies per Day at 1,000km Sensitivity')
     plt.show()

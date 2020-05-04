@@ -55,5 +55,5 @@ if __name__ == '__main__':
     plt.xlabel("Day")
     plt.ylabel("Number of Simplicies")
     plt.legend()
-    plt.title('Number of 0-, 1-, 2- and  Simplicies per Day at 1,000km Sensitivity')
+    plt.title('Number of 0- and 1-Simplicies per Day at 1,000km Sensitivity')
     plt.show()

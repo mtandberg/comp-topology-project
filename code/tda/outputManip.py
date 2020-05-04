@@ -45,15 +45,19 @@ if __name__ == '__main__':
             elif len(points_in_simplex) == 2:
                 one_simplex_ctr = 1+ one_simplex_ctr
                 a = 1
-            else:# len(points_in_simplex) == 3:
-                #never seems to get here. There are 2-simplexes though..
-                two_simplex_ctr == 1 + two_simplex_ctr
+            elif len(points_in_simplex) == 3:
+                #print("there are two simplexes")
+                two_simplex_ctr = 1+ two_simplex_ctr
                 a=2
+            else:
+                print("an additional higher order simplex exists")
+
     #plot data in a bar graph
-    plt.bar(day_ctr_arr, zero_simplex, align='center', alpha = 0.5, color = 'b', label = "zero-simplices")
-    plt.bar(day_ctr_arr, one_simplex, align='center', alpha = 0.5, color = 'g', label = "one-simplicies")
+    plt.bar(day_ctr_arr, zero_simplex, align='center', alpha = 0.5, color = 'black', label = "zero-simplices")
+    plt.bar(day_ctr_arr, one_simplex, align='center', alpha = 0.5, color = 'b', label = "one-simplicies")
+    plt.bar(day_ctr_arr, two_simplex, align='center', alpha = 0.5, color = 'g', label = "two-simplicies")
     plt.xlabel("Day")
     plt.ylabel("Number of Simplicies")
     plt.legend()
-    plt.title('Number of 0- and 1-Simplicies per Day at 1,000km Sensitivity')
+    plt.title('Number of 0-, 1-, and 2-Simplicies per Day at 1,000km Sensitivity')
     plt.show()

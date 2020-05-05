@@ -82,6 +82,13 @@ if __name__ == '__main__':
             
 
             for l, dgm in enumerate(dgms):
+                
+                '''
+                print(dgm)
+                if(len(dgm) != 1):
+                
+                    d.plot.plot_diagram(dgm, show = True)
+                '''
                 for pt in dgm:
                     if(l !=2):
                         #print(pt)
@@ -98,6 +105,7 @@ if __name__ == '__main__':
                         #homology.write("_homologygroup_")
                         #homology.write(str(l))
                         homology.write('\n')
+
                
 
             '''

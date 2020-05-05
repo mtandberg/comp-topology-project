@@ -36,10 +36,11 @@ if __name__ == '__main__':
         if(infected_idx % 4 == 0):
             print('Day ', counter, '...')
             f = d.fill_rips(point_data[infected_idx], n_skeleton, rips_stopping_radius)
+            f.sort()
 
-            filtration_list.append(f)
+            #filtration_list.append(f)
 
-            counter = counter +1
+            
             #print('Simplices in rips filtration with sensitivity ', rips_stopping_radius)
             '''
             output.write('Simplices in rips filtration with sensitivity ')
@@ -68,15 +69,73 @@ if __name__ == '__main__':
                     
             print('Homology output')
             m = d.homology_persistence(f)
+            homology.write("Day_")
+            homology.write(str(counter))
+            homology.write("\n")
+
+            print(m)
+
+            dgms = d.init_diagrams(m,f)
+            #print(dgms)
+            #homology.write(dgms)
+
+            
+
+            for l, dgm in enumerate(dgms):
+                for pt in dgm:
+                    if(l !=2):
+                        #print(pt)
+                        #print("Day: ", l, "Birth: ", pt.birth, "Death ", pt.death)
+                        homology.write("H")
+                        homology.write(str(l))
+                        
+                        homology.write("_Birth_")
+                        homology.write(str(pt.birth))
+                        homology.write("_Death_")
+                        homology.write(str(pt.death))
+                        homology.write("_Day_")
+                        homology.write(str(counter))
+                        #homology.write("_homologygroup_")
+                        #homology.write(str(l))
+                        homology.write('\n')
+               
+
+            '''
             for i,c in enumerate(m):
                 if(len(c) != 0):
                     #print(i,c)
-                    homology.write('HomologyChain_')
+                    homology.write(str(f[i]))
+                    #simps = str(f[i]).split(',')
+
+                    #homology.write('_HomologyChain')
+                    homology.write('_')
                     homology.write(str(c))
+                    rep = str(c).split('+')
+
+                    print(rep)
+                    for element in rep:
+                        #print(element)
+                        place = element.split('*')
+                        #print(place)
+                        simplex = int(place[1])
+                        homology.write('_')
+                        print(f[simplex])
+                        homology.write(str(f[simplex]))
+                        #print(int(name))
+                        #print('Day names: ', point_data[infected_idx+1])
+                        #homology.write('_')
+                        #homology.write(point_data[infected_idx+1][int(name)-1])
+                        #homology.write('_')
+                        #homology.write(str(point_data[infected_idx+2][int(name)-1]))
+                    
                     homology.write("\n")
+            '''
+
+
 
 
             
+            counter = counter +1
 
 
 

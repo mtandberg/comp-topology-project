@@ -35,8 +35,8 @@ def readoutput():
 
 if __name__ == '__main__':
     #img = Image.open('background.jpg')
-    WIDTH = 620 
-    HEIGHT = 480 
+    WIDTH = 1000 
+    HEIGHT = 1000 
 
     img = Image.new('RGB', (WIDTH,HEIGHT))
 
